@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, redirect} from 'react-router-dom'
 import { RecoilRoot } from 'recoil';
 
 import './App.css'
@@ -8,12 +8,18 @@ import Main from './Pages/Main';
 import Expenses from './Pages/Expenses';
 import Summary from './Pages/Summary';
 import Logout from './Pages/Logout';
+import Home from './Pages/Home';
 
 function App() {
 
 
 
   const router= createBrowserRouter([
+    {
+      path:'/',
+      element: <Home/>
+    },
+
     {
       path:'/signup',
       element:<Signup/>

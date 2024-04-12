@@ -40,6 +40,10 @@ function ExpenseEntry() {
     setNewTagModal(false);
   }
 
+  function handleConfirmation(){
+    // DO api call
+  }
+
 
   return (
     <>
@@ -163,7 +167,7 @@ function ExpenseEntry() {
           
           <div className='w-full flex justify-between mt-2 px-3'>
             <div><button className='w-36 h-14 rounded-lg bg-slate-900 text-white text-xl hover:scale-x-105 font-semibold' onClick={()=>setConfirmationModal(false)}>Cancel</button></div>
-            <div><button className='w-36 h-14 rounded-lg bg-green-500 text-white text-xl hover:scale-x-105 font-semibold'>Confirm</button></div>
+            <div><button className='w-36 h-14 rounded-lg bg-green-500 text-white text-xl hover:scale-x-105 font-semibold' onClick={handleConfirmation}>Confirm</button></div>
 
           </div>
 
