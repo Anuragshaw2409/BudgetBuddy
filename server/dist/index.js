@@ -1,2 +1,20 @@
 "use strict";
-console.log("Hello WOrld");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// const express = require ('express')
+const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const PORT = process.env.PORT;
+const UserRouter_1 = require("./Router/UserRouter");
+const ExpenseRouter_1 = require("./Router/ExpenseRouter");
+const app = (0, express_1.default)();
+app.listen(PORT, () => console.log("Listening on port:", PORT));
+app.use(express_1.default.json());
+app.use('/api/v1/user', UserRouter_1.UserRouter);
+app.use('/api/v1/expense', ExpenseRouter_1.ExpenseRouter);
+app.get('/', (req, res) => {
+    res.send("Hello World");
+});

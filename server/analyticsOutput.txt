@@ -1,0 +1,89 @@
+{
+  "highestSpent": {
+    "date": 17,
+    "amount": 6280
+  },
+  "mostEntry": {
+    "numberOfEntries": 3,
+    "amount": 2355,
+    "tag": [
+      "Condom",
+      "healthIcon"
+    ]
+  },
+  "expense": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    124,
+    0,
+    6280,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "entries": [
+    {
+      "tag": [
+        "healthIcon",
+        "Medicine"
+      ],
+      "entries": 1,
+      "amount": 785
+    },
+    {
+      "tag": [
+        "healthIcon",
+        "Condom"
+      ],
+      "entries": 3,
+      "amount": 2355
+    },
+    {
+      "tag": [
+        "healthIcon",
+        "Chut"
+      ],
+      "entries": 1,
+      "amount": 785
+    },
+    {
+      "tag": [
+        "healthIcon",
+        "lassi"
+      ],
+      "entries": 3,
+      "amount": 2355
+    },
+    {
+      "tag": [
+        "Books",
+        "Book"
+      ],
+      "entries": 1,
+      "amount": 124
+    }
+  ]
+}
