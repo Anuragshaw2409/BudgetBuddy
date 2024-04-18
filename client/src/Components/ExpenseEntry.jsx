@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, {  useState } from 'react'
 import { BsTags } from "react-icons/bs";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -9,6 +9,8 @@ import { tagsAtom } from '../Store/Tags';
 import { FaLock } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import {url} from '../util/clientUrl'
+import axios from 'axios'
 function ExpenseEntry() {
   
   const [tagValue, setTagValue] = useRecoilState(tagsAtom);
@@ -20,6 +22,7 @@ function ExpenseEntry() {
   const [newTagModal, setNewTagModal] =useState(false);
   const [newTagIcon, setNewTagIcon] =useState("");
   const [newTagName, setNewTagName] =useState("");
+  const token = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo1LCJpYXQiOjE3MTMzNDczOTJ9.y5tUAjdF3IjeXZc9olXhnr3MOLfx8X42aaK6QSh1I_s";
 
   function handleNext() {
     if (expenseValue == 0 || !expenseValue)
@@ -40,8 +43,29 @@ function ExpenseEntry() {
     setNewTagModal(false);
   }
 
-  function handleConfirmation(){
+   function handleConfirmation(){
     // DO api call
+
+    const response =  axios.post(`${url}/api/v1/expense/enterexpense`,{
+      amount: parseInt(expenseValue),
+      tagIcon: tag[0],
+      tagName: tag[1]
+    },
+  {
+    headers:{
+      'Content-Type': 'application/json',
+      'authorization': token
+    }
+  }).then(()=>{setExpenseValue('');setTag([<BsTags />, "Select your tag"]);setConfirmationModal(false);setOpenExpenseModal(false); })
+  // console.log(response.data);
+ return toast.promise(
+    response,
+     {
+       loading: 'Saving Expense...',
+       success: <b>Expense saved!</b>,
+       error: <b>Error saving expense</b>,
+     }
+   );
   }
 
 
