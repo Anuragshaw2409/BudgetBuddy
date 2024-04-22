@@ -119,8 +119,8 @@ function ExpenseEntry() {
               <div className='h-full w-full text-3xl text-slate-500 flex justify-center items-center group-hover:text-5xl transition-all duration-100 group-hover:text-slate-600'><GoPlus /></div>
             </div>
 
-            {tagValue && tagValue.map((tag) =>
-              <div className='child h-auto group'>
+            {tagValue && tagValue.map((tag, index) =>
+              <div className='child h-auto group' key={index}>
                 <div className='text-3xl text-center' onClick={() => {
                   setTag(tag);
                   setOpenTagModal(false);
@@ -208,5 +208,10 @@ function ExpenseEntry() {
     </>
   )
 }
+
+
+
+
+
 
 export default ExpenseEntry

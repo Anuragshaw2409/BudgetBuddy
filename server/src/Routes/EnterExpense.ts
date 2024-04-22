@@ -27,7 +27,7 @@ EnterExpenseRoute.post('/',authMiddleware,async(req,res)=>{
         
         
         try {
-            
+           
             const result = await prismaClient.expenditure.create({
                 data:{
                     userId: req.body.userId,
