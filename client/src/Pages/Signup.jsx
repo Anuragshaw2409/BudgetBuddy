@@ -5,13 +5,65 @@ import InputBox from '../Components/InputBox'
 import PasswordInput from '../Components/PasswordInput';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
+import {url} from '../util/clientUrl'
+import axios from 'axios';
+import {z} from 'zod';
 
 
 function Signup() {
-  const [name, setName] = useState("");
+
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] =useState("");
   const [email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+  
   const navigate = useNavigate();
+
+  const signUpSchema = z.object({
+    firstName: z.string().min(1,{message: "Enter valid name"}),
+    lastName: z.string().min().optional(),
+    email: z.string().email({message: "Enter valid email"}),
+    password: z.string().min(6,{message:"Password must be atleast 6 characters"})
+  });
+
+
+  async function handleSignUp(){
+    const parsedValues = signUpSchema.safeParse({
+      firstName,
+      lastName, 
+      email, 
+      password});
+    if(!parsedValues.success){
+      setMessage(parsedValues.error.issues[0].message);
+      return;
+
+    }
+
+    try {
+      const response = await axios.post(`${url}/api/v1/user/signup`,{
+        firstName,
+        lastName,
+        email,
+        password
+      });
+      const data = response.data;
+      console.log(data);
+      setMessage(data.message);
+      localStorage.setItem('token', data.token);
+      
+      navigate('/app/expenses');
+      
+    } catch (error) {
+
+      setMessage(error.response.data.message);
+      
+    }
+    
+
+
+  }
   return (
     <>
       <div className="h-screen bg-slate-50">
@@ -69,14 +121,15 @@ function Signup() {
           </div>
           <div className="inputs w-full px-3 rounded-md">
 
-            <InputBox label="Name" onChange={(value) => setName(value)} icon="fa-solid fa-user " />
-            <InputBox label="Phone number" onChange={(value) => setName(value)} icon="fa-solid fa-phone-volume" />
-            <InputBox label="Email" onChange={(value) => setEmail(value)} icon="fa-solid fa-envelope " />
-            <PasswordInput label="Password" onChange={(value) => setPassword(value)} icon="fa-solid fa-lock " />
+            <InputBox label="Name" onChange={(value) => {setFirstName(value); setMessage(null)}} icon="fa-solid fa-user " />
+            <InputBox label="Last Name" onChange={(value) => {setLastName(value);setMessage(null)}} icon="fa-solid fa-user" />
+            <InputBox label="Email" onChange={(value) => {setEmail(value);setMessage(null);}} icon="fa-solid fa-envelope " />
+            <PasswordInput label="Password" onChange={(value) => {setPassword(value);setMessage(null);}} icon="fa-solid fa-lock " />
 
+          {message && <div className='w-full text-lg text-red-500 text-center'>{message}</div>}
             <div className="submitButton w-full p-4">
 
-              <button className='bg-blue-400 w-full h-12 rounded-xl text-white hover:bg-blue-600'>Sign Up</button>
+              <button className='bg-blue-400 w-full h-12 rounded-xl text-white hover:bg-blue-600' onClick={handleSignUp}>Sign Up</button>
             </div>
 
 

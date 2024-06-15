@@ -10,9 +10,5 @@ const tagEntryAtom = atom({
     default: false
 });
 
-const createTagAtom = atom({
-    key: 'createTag',
-    default: false
-});
 
-export { expenseEntryAtom, tagEntryAtom, createTagAtom };
+export { expenseEntryAtom, tagEntryAtom };

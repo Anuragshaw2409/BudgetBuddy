@@ -22,7 +22,7 @@ function ExpenseEntry() {
   const [newTagModal, setNewTagModal] =useState(false);
   const [newTagIcon, setNewTagIcon] =useState("");
   const [newTagName, setNewTagName] =useState("");
-  const token = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo1LCJpYXQiOjE3MTMzNDczOTJ9.y5tUAjdF3IjeXZc9olXhnr3MOLfx8X42aaK6QSh1I_s";
+  const token = localStorage.getItem('token');
 
   function handleNext() {
     if (expenseValue == 0 || !expenseValue)
@@ -85,7 +85,7 @@ function ExpenseEntry() {
 
           <div className='flex w-full justify-center gap-5 mt-2 hover:scale-x-105 text-xl'>
             <div className='flex items-center gap-5 ' onClick={() => setOpenTagModal(!openTagModal)}> <span>{tag[0]}</span> <h1>{tag[1]}</h1></div>
-            <div><i class="fa-solid fa-arrow-rotate-left text-slate-600" onClick={() => { setTag([<BsTags />, "Select your tag"]); setOpenTagModal(true) }}></i></div>
+            <div><i className="fa-solid fa-arrow-rotate-left text-slate-600" onClick={() => { setTag([<BsTags />, "Select your tag"]); setOpenTagModal(true) }}></i></div>
           </div>
 
           <div className='flex gap-4 mt-4'>

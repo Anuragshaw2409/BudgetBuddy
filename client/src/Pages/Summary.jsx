@@ -16,7 +16,7 @@ function Summary() {
       <h1 className='underline'><Link to={'/app/expenses'} className='hover:text-blue-600'> Expenses</Link></h1>
       <div className=''>
 
-      <i class="fa-solid fa-caret-right text-yellow-400 text-2xl"></i>
+      <i className="fa-solid fa-caret-right text-yellow-400 text-2xl"></i>
       </div>
       </div>
     </div>

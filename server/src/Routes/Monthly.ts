@@ -2,10 +2,9 @@ import { Router } from 'express'
 import Z from 'zod';
 import { authMiddleware } from '../Middlewares/AuthMiddleWare';
 import { prisma } from '../PrimsaClient';
-import { PrismaClient } from '@prisma/client';
-const MonthlyRoute = Router();
+const MonthlyRoute1 = Router();
 
-MonthlyRoute.get('/',authMiddleware,async(req,res)=>{
+MonthlyRoute1.post('/',authMiddleware,async(req,res)=>{
     const prismaClient = prisma;
 
     const monthlySchema= Z.object({
@@ -36,20 +35,31 @@ MonthlyRoute.get('/',authMiddleware,async(req,res)=>{
                 tagIcon:true,
             }
         })
+
+        console.log(monthlyDataUnrev);
+        
         
         
         let totalSpent=0;
-        monthlyDataUnrev.forEach((expense)=>totalSpent+=expense.amount);
+        monthlyDataUnrev.forEach((expense)=>totalSpent+=expense.amount); //Calculated the total expense for the month
+        
+        
         let monthlyData = new Array();
-        monthlyDataUnrev.forEach(data=>monthlyData.unshift(data));
-        const lastDate  = monthlyData[0].date;
+        monthlyDataUnrev.forEach(data=>monthlyData.unshift(data));  //Saving the expenses in reverse to get newest first
+        console.log(monthlyData);
 
-        const expenses = new Array();
+
+
+        const lastDate  = monthlyData[0].date;  //Getting the last date
+
+        const expenses = new Array();  //Final array containing the object for all the transactions
         const totalData = monthlyData.length;
         for(let i=lastDate;i>0;i--){
             let transactions = new Array();
+            let dateWiseTotalExpense=0;
             for(let j=0;j<totalData;j++){
                 if(monthlyData[j].date==i && monthlyData[j].amount>0){
+                    dateWiseTotalExpense+=monthlyData[j].amount;
                     transactions.push({
                         tagIcon: monthlyData[j].tagIcon,
                         tagName: monthlyData[j].tagName,
@@ -63,18 +73,18 @@ MonthlyRoute.get('/',authMiddleware,async(req,res)=>{
             }
             if(transactions.length>0)
             expenses.push({
-                date:`${i}/${parsingResult.data.month}/${parsingResult.data.year}`,transactions
+                date:`${i}/${parsingResult.data.month}/${parsingResult.data.year}`,expense:dateWiseTotalExpense,transactions
             })
         }
         
 
 
         const response = {
-            TotalSpent: totalSpent,
+            TotalSpent: totalSpent.toString(),
             expenses
         }
 
-    return res.json(response);
+    return res.send(response);
     } catch (error) {
         res.json(error);
     }
@@ -83,4 +93,4 @@ MonthlyRoute.get('/',authMiddleware,async(req,res)=>{
 
 });
 
-export{MonthlyRoute}
+export{MonthlyRoute1}

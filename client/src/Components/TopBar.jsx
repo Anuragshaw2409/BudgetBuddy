@@ -8,11 +8,11 @@ function TopBar({label}) {
         <>
             <div className='h-auto  flex justify-between p-3'>
 
-                <i class="fa-regular fa-lightbulb text-2xl rotate-180 cursor-not-allowed text-yellow-500" onClick={()=>setLight((c)=>!c)}></i>
+                <i className="fa-regular fa-lightbulb text-2xl rotate-180 cursor-not-allowed text-yellow-500" onClick={()=>setLight((c)=>!c)}></i>
                 <div>
                     <h1 className='font-semibold'>{label.toUpperCase()}</h1>
                 </div>
-                <i class="fa-solid fa-right-from-bracket text-2xl cursor-pointer" onClick={()=>navigate('/logout')}></i>
+                <i className="fa-solid fa-right-from-bracket text-2xl cursor-pointer" onClick={()=>navigate('/logout')}></i>
 
 
 

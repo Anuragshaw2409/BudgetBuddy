@@ -15,7 +15,7 @@ EnterExpenseRoute.post('/',authMiddleware,async(req,res)=>{
         const expenseEntrySchema = Z.object({
             
             
-            amount: Z.number(),
+            amount: Z.number().min(1),
             tagIcon: Z.string().min(1,{message:"Enter valid tag"}),
             tagName: Z.string().min(1,{message:"Enter valid tag"})
             
